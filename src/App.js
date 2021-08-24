@@ -23,12 +23,7 @@ function App(){
   
     setVideos(response.data.items);
     setSelectedVideo(response.data.items[0]);
-  }
-
-  const onVideoSelect = (video) => {
-    setSelectedVideo(video);
   };
-
 
   return (
     <div className="ui container" style={{marginTop: "15px"}}>
@@ -39,7 +34,8 @@ function App(){
             <VideoDetail video={selectedVideo}/>
           </div>
           <div className="five wide column">
-            <VideoList keys={videos.map(video => video.id.videoId)} videos={videos} onVideoSelect={onVideoSelect} />
+            {/* video => setSelectedVideo(video) is equivalent to setSelectedVideo */}
+            <VideoList keys={videos.map(video => video.id.videoId)} videos={videos} onVideoSelect={setSelectedVideo} />
           </div>
         </div>
       </div>
