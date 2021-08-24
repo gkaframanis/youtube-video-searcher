@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
 
-function App() {
+import SearchBar from "./components/SearchBar/SearchBar";
+import VideoList from "./components/Video/VideoList/VideoList";
+import VideoDetail from "./components/Video/VideoDetail/VideoDetail";
+import youtube from "./components/API/YoutubeApi";
+
+
+function App(){
+
+  const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  
+  useEffect(() => {
+    onTermSubmit("buildings");
+  }, []);
+
+
+  const onTermSubmit = async term => {
+    const response = await youtube.get(`/search`, {
+      params: {q: term}
+    });
+  
+    setVideos(response.data.items);
+    setSelectedVideo(response.data.items[0]);
+  }
+
+  const onVideoSelect = (video) => {
+    setSelectedVideo(video);
+  };
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="ui container" style={{marginTop: "15px"}}>
+      <SearchBar onTermSubmit={onTermSubmit}/>
+      <div className="ui grid">
+        <div className="ui row">
+          <div className="eleven wide column">
+            <VideoDetail video={selectedVideo}/>
+          </div>
+          <div className="five wide column">
+            <VideoList keys={videos.map(video => video.id.videoId)} videos={videos} onVideoSelect={onVideoSelect} />
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
