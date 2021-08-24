@@ -3,7 +3,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-To install the depedencies
+To install the depedencies:
 ### `yarn install`
 
 In the project directory, you can run:
