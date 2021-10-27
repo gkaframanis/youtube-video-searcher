@@ -1,5 +1,8 @@
 # Youtube Video Searcher App
-<hr>
+
+A React app created with create-react-app so the user can give an input a term and get  
+as a result a list of videos from the Youtube API. For styling the  
+Semantic UI development framework was used.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
